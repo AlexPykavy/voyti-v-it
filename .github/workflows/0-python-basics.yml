@@ -19,7 +19,7 @@ jobs:
       run:
         working-directory: ./0-python-basics
     env:
-      python-version: "3.10"
+      python-version: "3.11"
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
