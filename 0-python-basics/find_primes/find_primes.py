@@ -13,4 +13,4 @@ def find_primes(n: int) -> List[int]:
 
 
     return (primes)
-print(find_primes(10))
+

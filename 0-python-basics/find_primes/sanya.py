@@ -10,4 +10,4 @@ def find_primes_oneline(n: int) -> List[int]:
 
 
 
-print(find_primes_oneline(5))
+
