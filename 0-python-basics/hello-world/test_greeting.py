@@ -1,4 +1,4 @@
-from main import greeting
+from greeting import greeting
 
 
 def test_greeting_with_person():
