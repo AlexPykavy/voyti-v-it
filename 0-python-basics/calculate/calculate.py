@@ -14,13 +14,13 @@ def calc(a, b, op):
     if op == '+':
         return a + b
 
-    elif op == '-':
+    if op == '-':
         return a - b
 
-    elif op == '*':
+    if op == '*':
         return a * b
 
-    elif op == '/':
+    if op == '/':
         return round(a / b, 1)
 
 
@@ -45,7 +45,7 @@ def calculate(e: str) -> float:
             ops.pop()
 
         elif tok in '+-/*':
-            while ops and precedence(ops[-1]) >= precedence(tok):
+            while ops and precedence(ops[-1]) >= precedence(tok):        #while ops similar while ops != 0 
 
                 numb2 = stack.pop()
                 numb1 = stack.pop()
