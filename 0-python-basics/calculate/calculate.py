@@ -9,7 +9,6 @@ def calculate(e: str) -> float:
         g.append(float(i))
 
     a = float(g[0])
-
     b = float(g[1])
 
     if "+" in e:
