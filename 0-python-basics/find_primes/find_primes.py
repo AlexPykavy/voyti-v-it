@@ -10,4 +10,5 @@ def find_primes(n: int) -> List[int]:
                 break
         else:
             primes.append(i)
+
     return (primes)
