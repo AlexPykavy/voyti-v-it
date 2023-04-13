@@ -1,24 +1,69 @@
-import re
+def precedence(op):
+
+    if op == '+' or op == '-':
+        return 1
+
+    if op == '*' or op == '/':
+        return 2
+
+    return 0
+
+
+def calc(a, b, op):
+
+    if op == '+':
+        return a + b
+
+    if op == '-':
+        return a - b
+
+    if op == '*':
+        return a * b
+
+    if op == '/':
+        return round(a / b, 1)
 
 
 def calculate(e: str) -> float:
-    g = []
-    nums = re.findall('[0-9]+', e)
+    list = e.split()
+    stack = []
+    ops = []
 
-    for i in nums:
-        g.append(float(i))
+    for tok in list:
+        if tok == '(':
+            ops.append(tok)
 
-    a = float(g[0])
-    b = float(g[1])
+        elif tok == ')':
+            while ops and ops[-1] != '(':
 
-    if "+" in e:
-        return a+b
+                numb2 = stack.pop()
+                numb1 = stack.pop()
+                op = ops.pop()
 
-    if "-" in e:
-        return a-b
+                stack.append(calc(numb1, numb2, op))
 
-    if "*" in e:
-        return a*b
+            ops.pop()
 
-    if "/" in e:
-        return a/b
+        elif tok in '+-/*':
+            while ops and precedence(ops[-1]) >= precedence(tok):
+
+                numb2 = stack.pop()
+                numb1 = stack.pop()
+                op = ops.pop()
+
+                stack.append(calc(numb1, numb2, op))
+
+            ops.append(tok)
+
+        else:
+            stack.append(float(tok))
+
+    while len(ops) != 0:
+
+        numb2 = stack.pop()
+        numb1 = stack.pop()
+        op = ops.pop()
+
+        stack.append(calc(numb1, numb2, op))
+
+    return stack[-1]
