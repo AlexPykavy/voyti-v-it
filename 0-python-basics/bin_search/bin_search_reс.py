@@ -1,4 +1,4 @@
-def bin_search(list, low, high, x):
+def bin_search_rec(list, low, high, x):
 
     if high >= low:
 
@@ -8,10 +8,10 @@ def bin_search(list, low, high, x):
             return mid
 
         elif list[mid] > x:
-            return bin_search(list, low, mid - 1, x)
+            return bin_search_rec(list, low, mid - 1, x)
 
         else:
-            return bin_search(list, mid + 1, high, x)
+            return bin_search_rec(list, mid + 1, high, x)
 
     else:
 
@@ -22,7 +22,7 @@ list = [2, 3, 4, 10, 40]
 x = 10
 
 
-result = bin_search(list, 0, len(list)-1, x)
+result = bin_search_rec(list, 0, len(list)-1, x)
 
 if result != -1:
     print("Element is present at index", str(result))
