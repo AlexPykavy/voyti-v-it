@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{%block title%}doctors{% endblock %}
+
+{% block content %}
+<table class="table mt-5 table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Doctor</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for doctor in doctors %}
+        <tr>
+            <td>
+                <a href={% url "doctor" doctor.id %}>{{doctor.FirstName}} {{doctor.LastName}}</a>
+            </td>
+            <td>{{doctor.Email}}</td>
+            <td>{{doctor.Telephone}}</td>
+            <td><button class="btn btn-primary">Sign up</button></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{%endblock%}
