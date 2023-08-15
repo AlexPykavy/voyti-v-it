@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ doctor.Firstname}}{{doctor.LastName}}{% endblock %}
+
+
+{% block content %}
+<h1 class="mt-5">{{doctor.FirstName}} {{doctor.LastName}}</h1>
+<p>{{doctor.Email}}</p>
+<p>{{doctor.Telephone}}</p>
+<button class="btn btn-primary">Sign up</button>
+
+{% endblock %}
