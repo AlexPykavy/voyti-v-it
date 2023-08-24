@@ -15,14 +15,32 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.models import PatientResource, DoctorResource
+from api.models import PatientResource, DoctorResource, AppointmentResource, JobResource, RenderedServiceResource, ServiceResourse, PrescrtiptionResource, InvoiceResourse, RoomResource, DepartmentResource
 from tastypie.api import Api
 
 api = Api(api_name='v1')
 doctor_resource = DoctorResource()
 patient_resource = PatientResource()
+appointment_resource = AppointmentResource()
+job_resource = JobResource()
+rendered_service_resource = RenderedServiceResource()
+service_resource = ServiceResourse()
+prescription_resource = PrescrtiptionResource()
+invoice_resource = InvoiceResourse()
+room_resource = RoomResource()
+department_resource = DepartmentResource()
+
 api.register(doctor_resource)
 api.register(patient_resource)
+api.register(appointment_resource)
+api.register(job_resource)
+api.register(rendered_service_resource)
+api.register(service_resource)
+api.register(prescription_resource)
+api.register(invoice_resource)
+api.register(room_resource)
+api.register(department_resource)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
