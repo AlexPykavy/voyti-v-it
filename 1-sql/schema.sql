@@ -33,15 +33,14 @@ CREATE TABLE IF NOT EXISTS "Prescription" (
 	FOREIGN KEY("AppointmentId") REFERENCES "Appointment"("id")
 );
 
-CREATE TABLE IF NOT EXISTS "Doctor" (
-	"Id" INTEGER NOT NULL,
-	"FirstName" TEXT NOT NULL,
-	"LastName" TEXT NOT NULL,
-	"BirthDate" TEXT NOT NULL,
-	"Address" TEXT,
-	"Telephone" TEXT,
-	"Email" TEXT,
-	PRIMARY KEY("Id")
+CREATE TABLE "clinic_doctor" (
+	"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"FirstName" varchar(200) NOT NULL,
+	"LastName" varchar(200) NOT NULL,
+	"Telephone" varchar(200) NOT NULL,
+	"Email" varchar(200) NOT NULL,
+	"created_at" datetime NOT NULL,
+	"BirthDate" date NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "Room" (

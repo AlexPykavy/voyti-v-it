@@ -18,50 +18,21 @@ from django.urls import path, include
 from clinic.views import *
 from rest_framework import routers
 
-router1 = routers.SimpleRouter()
-router1.register(r'appointments', AppointmentsViewSet)
-
-router2 = routers.SimpleRouter()
-router2.register(r'doctors', DoctorsViewSet)
-
-router3 = routers.SimpleRouter()
-router3.register(r'jobs', JobsViewSet)
-
-router4 = routers.SimpleRouter()
-router4.register(r'prescriptions', PrescriptionsViewSet)
-
-router5 = routers.SimpleRouter()
-router5.register(r'services', ServicesViewSet)
-
-router6 = routers.SimpleRouter()
-router6.register(r'rendered_services', RenderedServicesViewSet)
-
-router7 = routers.SimpleRouter()
-router7.register(r'departments', DepartmentsViewSet)
-
-router8 = routers.SimpleRouter()
-router8.register(r'invoices', InvoicesViewSet)
-
-router9 = routers.SimpleRouter()
-router9.register(r'patients', PatientsViewSet)
-
-router10 = routers.SimpleRouter()
-router10.register(r'rooms', RoomsViewSet)
-
+router = routers.SimpleRouter()
+router.register(r'appointment', AppointmentsViewSet)
+router.register(r'doctor', DoctorsViewSet)
+router.register(r'job', JobsViewSet)
+router.register(r'prescription', PrescriptionsViewSet)
+router.register(r'service', ServicesViewSet)
+router.register(r'rendered_service', RenderedServicesViewSet)
+router.register(r'department', DepartmentsViewSet)
+router.register(r'invoice', InvoicesViewSet)
+router.register(r'patient', PatientsViewSet)
+router.register(r'room', RoomsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('clinic/', include('clinic.urls')),
-    path('api/v1/', include(router1.urls)),
-    path('api/v1/', include(router2.urls)),
-    path('api/v1/', include(router3.urls)),
-    path('api/v1/', include(router4.urls)),
-    path('api/v1/', include(router5.urls)),
-    path('api/v1/', include(router6.urls)),
-    path('api/v1/', include(router7.urls)),
-    path('api/v1/', include(router8.urls)),
-    path('api/v1/', include(router9.urls)),
-    path('api/v1/', include(router10.urls))
-
+    path('api/v1/', include(router.urls)),
 
 ]

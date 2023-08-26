@@ -1,103 +1,6 @@
-BEGIN TRANSACTION;
-
-CREATE TABLE IF NOT EXISTS "Patient" (
-	"Id" INTEGER NOT NULL,
-	"FirstName" TEXT NOT NULL,
-	"LastName" TEXT NOT NULL,
-	"BirthDate" TEXT NOT NULL,
-	"Address" TEXT,
-	"Telephone" TEXT,
-	"Email" TEXT,
-	PRIMARY KEY("Id")
-);
-
-CREATE TABLE IF NOT EXISTS "Appointment" (
-	"Id" INTEGER NOT NULL,
-	"PatientId" INTEGER NOT NULL,
-	"DoctorId" INTEGER NOT NULL,
-	"Date" TEXT NOT NULL,
-	"RoomId" INTEGER NOT NULL,
-	PRIMARY KEY("Id" AUTOINCREMENT),
-	FOREIGN KEY("RoomId") REFERENCES "Room"("id"),
-	FOREIGN KEY("DoctorId") REFERENCES "Doctor"("id"),
-	FOREIGN KEY("PatientId") REFERENCES "Patient"("id")
-);
-
-CREATE TABLE IF NOT EXISTS "Prescription" (
-	"Id" INTEGER NOT NULL,
-	"AppointmentId" INTEGER NOT NULL,
-	"StartDate" TEXT NOT NULL,
-	"EndDate" TEXT NOT NULL,
-	"Medication" TEXT,
-	"Approved" TEXT NOT NULL,
-	FOREIGN KEY("AppointmentId") REFERENCES "Appointment"("id")
-);
-
-CREATE TABLE IF NOT EXISTS "Doctor" (
-	"Id" INTEGER NOT NULL,
-	"FirstName" TEXT NOT NULL,
-	"LastName" TEXT NOT NULL,
-	"BirthDate" TEXT NOT NULL,
-	"Address" TEXT,
-	"Telephone" TEXT,
-	"Email" TEXT,
-	PRIMARY KEY("Id")
-);
-
-CREATE TABLE IF NOT EXISTS "Room" (
-	"Id" INTEGER NOT NULL,
-	"DepartmentId" INTEGER NOT NULL,
-	"NUMBER" INTEGER NOT NULL,
-	PRIMARY KEY("Id" AUTOINCREMENT),
-	FOREIGN KEY("DepartmentId") REFERENCES "Department"("id")
-);
-
-CREATE TABLE IF NOT EXISTS "RenderedService" (
-	"Id" INTEGER NOT NULL,
-	"AppointmentId" INTEGER NOT NULL,
-	"ServiceId" INTEGER NOT NULL,
-	"Quantity" INTEGER NOT NULL,
-	PRIMARY KEY("Id" AUTOINCREMENT),
-	FOREIGN KEY("AppointmentId") REFERENCES "Appointment"("id")
-);
-
-CREATE TABLE IF NOT EXISTS "Invoice" (
-	"Id" INTEGER NOT NULL,
-	"RenderedServiceId" INTEGER NOT NULL,
-	FOREIGN KEY("RenderedServiceId") REFERENCES "RenderedService"("id")
-);
-
-CREATE TABLE IF NOT EXISTS "Department" (
-	"Id" INTEGER NOT NULL,
-	"Name" TEXT NOT NULL,
-	"Telephone" TEXT NOT NULL,
-	"Email" TEXT,
-	PRIMARY KEY("Id" AUTOINCREMENT)
-);
-
-CREATE TABLE IF NOT EXISTS "Service" (
-	"Id" INTEGER NOT NULL,
-	"DepartmentId" INTEGER NOT NULL,
-	"Name" TEXT NOT NULL,
-	"Description" TEXT,
-	"Price" INTEGER NOT NULL,
-	FOREIGN KEY("DepartmentId") REFERENCES "Department"("id")
-);
-
-CREATE TABLE IF NOT EXISTS "Job" (
-	"Id" INTEGER NOT NULL,
-	"DoctorId" INTEGER NOT NULL,
-	"DepartmentId" INTEGER NOT NULL,
-	"Title" INTEGER NOT NULL,
-	"StartDate" INTEGER NOT NULL,
-	"EndDate" INTEGER NOT NULL,
-	FOREIGN KEY("DoctorId") REFERENCES "Doctor"("id"),
-	FOREIGN KEY("DepartmentId") REFERENCES "Department"("id")
-);
-
 INSERT INTO
 	"Patient" (
-		"Id",
+		"id",
 		"FirstName",
 		"LastName",
 		"BirthDate",
@@ -153,7 +56,13 @@ VALUES
 	);
 
 INSERT INTO
-	"Appointment" ("Id", "PatientId", "DoctorId", "Date", "RoomId")
+	"Appointment" (
+		"id",
+		"Patient_id",
+		"Doctor_id",
+		"Date",
+		"Room_id"
+	)
 VALUES
 	(1, 5, 1, '01.08.2022', 5),
 	(2, 3, 2, '02.08.2022', 1),
@@ -163,8 +72,8 @@ VALUES
 
 INSERT INTO
 	"Prescription" (
-		"Id",
-		"AppointmentId",
+		"id",
+		"Appointment_id",
 		"StartDate",
 		"EndDate",
 		"Medication",
@@ -214,7 +123,7 @@ VALUES
 
 INSERT INTO
 	"Doctor" (
-		"Id",
+		"id",
 		"FirstName",
 		"LastName",
 		"BirthDate",
@@ -270,7 +179,7 @@ VALUES
 	);
 
 INSERT INTO
-	"Room" ("Id", "DepartmentId", "NUMBER")
+	"Room" ("id", "Department_id", "NUMBER")
 VALUES
 	(1, 5, 101),
 	(2, 1, 102),
@@ -279,7 +188,7 @@ VALUES
 	(5, 2, 105);
 
 INSERT INTO
-	"RenderedService" ("Id", "AppointmentId", "ServiceId", "Quantity")
+	"RenderedService" ("id", "Appointment_id", "Service_id", "Quantity")
 VALUES
 	(1, 1, 2, 1),
 	(2, 2, 5, 1),
@@ -288,7 +197,7 @@ VALUES
 	(5, 5, 1, 1);
 
 INSERT INTO
-	"Invoice" ("Id", "RenderedServiceId")
+	"Invoice" ("id", "RenderedService_id")
 VALUES
 	(1, 1),
 	(2, 2),
@@ -297,7 +206,7 @@ VALUES
 	(5, 5);
 
 INSERT INTO
-	"Department" ("Id", "Name", "Telephone", "Email")
+	"Department" ("id", "Name", "Telephone", "Email")
 VALUES
 	(
 		1,
@@ -327,8 +236,8 @@ VALUES
 
 INSERT INTO
 	"Service" (
-		"Id",
-		"DepartmentId",
+		"id",
+		"Department_id",
 		"Name",
 		"Description",
 		"Price"
@@ -372,9 +281,9 @@ VALUES
 
 INSERT INTO
 	"Job" (
-		"Id",
-		"DoctorId",
-		"DepartmentId",
+		"id",
+		"Doctor_id",
+		"Department_id",
 		"Title",
 		"StartDate",
 		"EndDate"
