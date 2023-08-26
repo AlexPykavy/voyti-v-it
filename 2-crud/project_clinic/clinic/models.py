@@ -5,7 +5,7 @@ from django.utils import timezone
 class Patient(models.Model):
     FirstName = models.CharField(max_length=200)
     LastName = models.CharField(max_length=200)
-    BirthDate = models.DateTimeField()
+    BirthDate = models.DateField()
     Telephone = models.CharField(max_length=200)
     Email = models.CharField(max_length=200)
     created_at = models.DateTimeField(default=timezone.now)
@@ -17,22 +17,13 @@ class Patient(models.Model):
 class Doctor(models.Model):
     FirstName = models.CharField(max_length=200)
     LastName = models.CharField(max_length=200)
-    BirthDate = models.DateTimeField()
+    BirthDate = models.DateField()
     Telephone = models.CharField(max_length=200)
     Email = models.CharField(max_length=200)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'''{self.FirstName} {self.LastName}'''
-
-
-class Doctor(models.Model):
-    FirstName = models.CharField(max_length=200)
-    LastName = models.CharField(max_length=200)
-    BirthDate = models.DateTimeField()
-    Telephone = models.CharField(max_length=200)
-    Email = models.CharField(max_length=200)
-    created_at = models.DateTimeField(default=timezone.now)
 
 
 class Department(models.Model):
@@ -48,14 +39,14 @@ class Room(models.Model):
 class Appointment(models.Model):
     Patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     Doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    Date = models.DateTimeField()
+    Date = models.DateField()
     Room = models.ForeignKey(Room, on_delete=models.CASCADE)
 
 
 class Prescription(models.Model):
     Appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
-    StartDate = models.DateTimeField()
-    EndDate = models.DateTimeField()
+    StartDate = models.DateField()
+    EndDate = models.DateField()
     Medication = models.CharField(max_length=200)
     Approved = models.CharField(max_length=50)
 
@@ -82,5 +73,5 @@ class Job(models.Model):
     Doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     Department = models.ForeignKey(Department, on_delete=models.CASCADE)
     Title = models.CharField(max_length=200)
-    StartDate = models.DateTimeField()
-    EndDate = models.DateTimeField()
+    StartDate = models.DateField()
+    EndDate = models.DateField()

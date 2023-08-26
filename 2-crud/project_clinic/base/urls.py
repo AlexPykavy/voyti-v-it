@@ -15,36 +15,53 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.models import PatientResource, DoctorResource, AppointmentResource, JobResource, RenderedServiceResource, ServiceResourse, PrescrtiptionResource, InvoiceResourse, RoomResource, DepartmentResource
-from tastypie.api import Api
+from clinic.views import *
+from rest_framework import routers
 
-api = Api(api_name='v1')
-doctor_resource = DoctorResource()
-patient_resource = PatientResource()
-appointment_resource = AppointmentResource()
-job_resource = JobResource()
-rendered_service_resource = RenderedServiceResource()
-service_resource = ServiceResourse()
-prescription_resource = PrescrtiptionResource()
-invoice_resource = InvoiceResourse()
-room_resource = RoomResource()
-department_resource = DepartmentResource()
+router1 = routers.SimpleRouter()
+router1.register(r'appointments', AppointmentsViewSet)
 
-api.register(doctor_resource)
-api.register(patient_resource)
-api.register(appointment_resource)
-api.register(job_resource)
-api.register(rendered_service_resource)
-api.register(service_resource)
-api.register(prescription_resource)
-api.register(invoice_resource)
-api.register(room_resource)
-api.register(department_resource)
+router2 = routers.SimpleRouter()
+router2.register(r'doctors', DoctorsViewSet)
+
+router3 = routers.SimpleRouter()
+router3.register(r'jobs', JobsViewSet)
+
+router4 = routers.SimpleRouter()
+router4.register(r'prescriptions', PrescriptionsViewSet)
+
+router5 = routers.SimpleRouter()
+router5.register(r'services', ServicesViewSet)
+
+router6 = routers.SimpleRouter()
+router6.register(r'rendered_services', RenderedServicesViewSet)
+
+router7 = routers.SimpleRouter()
+router7.register(r'departments', DepartmentsViewSet)
+
+router8 = routers.SimpleRouter()
+router8.register(r'invoices', InvoicesViewSet)
+
+router9 = routers.SimpleRouter()
+router9.register(r'patients', PatientsViewSet)
+
+router10 = routers.SimpleRouter()
+router10.register(r'rooms', RoomsViewSet)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('clinic/', include('clinic.urls')),
-    path('api/', include(api.urls))
+    path('api/v1/', include(router1.urls)),
+    path('api/v1/', include(router2.urls)),
+    path('api/v1/', include(router3.urls)),
+    path('api/v1/', include(router4.urls)),
+    path('api/v1/', include(router5.urls)),
+    path('api/v1/', include(router6.urls)),
+    path('api/v1/', include(router7.urls)),
+    path('api/v1/', include(router8.urls)),
+    path('api/v1/', include(router9.urls)),
+    path('api/v1/', include(router10.urls))
+
 
 ]
