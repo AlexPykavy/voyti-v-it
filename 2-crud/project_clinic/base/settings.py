@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'clinic.apps.ClinicConfig',
-    'api.apps.ApiConfig',
-    'tastypie'
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [

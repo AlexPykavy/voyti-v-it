@@ -15,18 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.models import PatientResource, DoctorResource
-from tastypie.api import Api
+from clinic.views import *
+from rest_framework import routers
 
-api = Api(api_name='v1')
-doctor_resource = DoctorResource()
-patient_resource = PatientResource()
-api.register(doctor_resource)
-api.register(patient_resource)
+router = routers.SimpleRouter()
+router.register(r'appointment', AppointmentsViewSet)
+router.register(r'doctor', DoctorsViewSet)
+router.register(r'job', JobsViewSet)
+router.register(r'prescription', PrescriptionsViewSet)
+router.register(r'service', ServicesViewSet)
+router.register(r'rendered_service', RenderedServicesViewSet)
+router.register(r'department', DepartmentsViewSet)
+router.register(r'invoice', InvoicesViewSet)
+router.register(r'patient', PatientsViewSet)
+router.register(r'room', RoomsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('clinic/', include('clinic.urls')),
-    path('api/', include(api.urls))
+    path('api/v1/', include(router.urls)),
 
 ]
