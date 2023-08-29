@@ -13,7 +13,7 @@ VALUES
 		1,
 		'Ivan',
 		'Kuksa',
-		'02.11.1995',
+		'1995-11-02',
 		'Brest, 9 Lutskaya St., apt.81',
 		'+375335987878',
 		'kuks69@mail.ru'
@@ -22,7 +22,7 @@ VALUES
 		2,
 		'Andrey',
 		'Pik',
-		'16.08.1989',
+		'1989-08-16',
 		'Brest, 17 Lenina St., apt.33',
 		'+375292524689',
 		'andypik@mail.ru'
@@ -31,7 +31,7 @@ VALUES
 		3,
 		'Artyom',
 		'Voron',
-		'27.03.1999',
+		'1999-03-27',
 		'Brest, 384 Moskovskaya St., apt.108',
 		'+375297854562',
 		'voron99@mail.ru'
@@ -40,7 +40,7 @@ VALUES
 		4,
 		'Alexey',
 		'Molotov',
-		'22.06.1941',
+		'1941-06-22',
 		'Brest, 14 GOBK St., apt.88',
 		'+375336589916',
 		'lublypakty@mail.ru'
@@ -49,7 +49,7 @@ VALUES
 		5,
 		'Victor',
 		'Khrustalyov',
-		'14.01.1967',
+		'1967-04-22',
 		'Brest, 77 Mashensckogo St., apt.1',
 		'+375333338564',
 		'vichui@yandex.ru'
@@ -64,11 +64,11 @@ INSERT INTO
 		"Room_id"
 	)
 VALUES
-	(1, 5, 1, '01.08.2022', 5),
-	(2, 3, 2, '02.08.2022', 1),
-	(3, 1, 3, '02.08.2022', 4),
-	(4, 2, 4, '08.08.2022', 3),
-	(5, 4, 5, '08.08.2022', 2);
+	(1, 5, 1, '2022-08-02', 5),
+	(2, 3, 2, '2022-08-02', 1),
+	(3, 1, 3, '2022-08-02', 4),
+	(4, 2, 4, '2022-08-08', 3),
+	(5, 4, 5, '2022-08-08', 2);
 
 INSERT INTO
 	"Prescription" (
@@ -83,40 +83,40 @@ VALUES
 	(
 		1,
 		4,
-		'08.08.2022',
-		'16.08.2022',
+		'2022-08-08',
+		'2022-08-16',
 		'diclofenac 3 times every 7 days',
 		'yes'
 	),
 	(
 		2,
 		1,
-		'02.08.2022',
-		'07.08.2022',
+		'2022-08-02',
+		'2022-08-07',
 		'nemisulide (solution) 1 time per day',
 		'yes'
 	),
 	(
 		3,
 		3,
-		'02.08.2022',
-		'10.08.2022',
+		'2022-08-02',
+		'2022-08-10',
 		'glycine 2 tablets 3 times per day',
 		'yes'
 	),
 	(
 		4,
 		5,
-		'08.08.2022',
-		'14.08.2022',
+		'2022-08-08',
+		'2022-14-08',
 		'ibuprofen 1 tablet 2 times per day',
 		'yes'
 	),
 	(
 		5,
 		2,
-		'01.08.2022',
-		'04.08.2022',
+		'2022-08-01',
+		'2022-08-04',
 		'isoptin 1 tablet 3 times per day',
 		'yes'
 	);
@@ -136,7 +136,7 @@ VALUES
 		1,
 		'Ivan',
 		'Nekupidman',
-		'15.03.1988',
+		'1988-03-15',
 		'Brest, 55 Halturina St., apt.17',
 		'+375336055588',
 		'docnekupidman@mail.ru'
@@ -145,7 +145,7 @@ VALUES
 		2,
 		'Moysha',
 		'Liberman',
-		'11.02.1965',
+		'1965-02-22',
 		'Brest, 108 Zubachyova St., apt.3',
 		'+375333678757',
 		'docliberman@mail.ru'
@@ -154,7 +154,7 @@ VALUES
 		3,
 		'Sara',
 		'Liberman',
-		'11.02.1972',
+		'1972-09-02',
 		'Brest, 108 Zubachyova St., apt.3',
 		'+375297250404',
 		'docsliberman@mail.ru'
@@ -163,7 +163,7 @@ VALUES
 		4,
 		'Lavrinty',
 		'Beriabaym',
-		'14.08.1988',
+		'1988-08-14',
 		'Brest, 88 Orlovskaya St., apt.6',
 		'+375292890489',
 		'docberiabaym@mail.ru'
@@ -172,7 +172,7 @@ VALUES
 		5,
 		'Aleksandra',
 		'Krinzhova',
-		'27.11.1991',
+		'1997-11-27',
 		'Kobrin, 24 Lenina St., apt.28',
 		'+375297275981',
 		'dockrinzhova@mail.ru'
@@ -294,40 +294,40 @@ VALUES
 		1,
 		2,
 		'traumatologist of the highest category',
-		'01.02.2010',
-		'10.11.2023'
+		'2010-02-01',
+		'2023-11-10'
 	),
 	(
 		2,
 		2,
 		5,
 		'chief physician, cardiologist of the highest category',
-		'01.03.2002',
-		'03.10.2025'
+		'2002-03-01',
+		'2025-10-03'
 	),
 	(
 		3,
 		3,
 		4,
 		'neurologist of the 1st category',
-		'07.05.2005',
-		'02.09.2025'
+		'2005-05-07',
+		'2025-09-02'
 	),
 	(
 		4,
 		4,
 		3,
 		'surgeon of the 1st category',
-		'03.06.2012',
-		'11.03.2026'
+		'2012-06-03',
+		'2026-03-11'
 	),
 	(
 		5,
 		5,
 		1,
 		'therapist of the 2st category',
-		'22.02.2018',
-		'15.04.2024'
+		'2018-02-22',
+		'2024-04-15'
 	);
 
 COMMIT;

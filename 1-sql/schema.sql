@@ -1,97 +1,103 @@
 BEGIN TRANSACTION;
 
-CREATE TABLE IF NOT EXISTS "Patient" (
-	"Id" INTEGER NOT NULL,
-	"FirstName" TEXT NOT NULL,
-	"LastName" TEXT NOT NULL,
-	"BirthDate" TEXT NOT NULL,
-	"Address" TEXT,
-	"Telephone" TEXT,
-	"Email" TEXT,
-	PRIMARY KEY("Id")
-);
-
-CREATE TABLE IF NOT EXISTS "Appointment" (
-	"Id" INTEGER NOT NULL,
-	"PatientId" INTEGER NOT NULL,
-	"DoctorId" INTEGER NOT NULL,
-	"Date" TEXT NOT NULL,
-	"RoomId" INTEGER NOT NULL,
-	PRIMARY KEY("Id" AUTOINCREMENT),
-	FOREIGN KEY("DoctorId") REFERENCES "Doctor"("id"),
-	FOREIGN KEY("RoomId") REFERENCES "Room"("id"),
-	FOREIGN KEY("PatientId") REFERENCES "Patient"("id")
-);
-
-CREATE TABLE IF NOT EXISTS "Prescription" (
-	"Id" INTEGER NOT NULL,
-	"AppointmentId" INTEGER NOT NULL,
-	"StartDate" TEXT NOT NULL,
-	"EndDate" TEXT NOT NULL,
-	"Medication" TEXT,
-	"Approved" TEXT NOT NULL,
-	FOREIGN KEY("AppointmentId") REFERENCES "Appointment"("id")
-);
-
-CREATE TABLE "clinic_doctor" (
-	"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-	"FirstName" varchar(200) NOT NULL,
-	"LastName" varchar(200) NOT NULL,
+CREATE TABLE IF NOT EXISTS "Department" (
+	"id" integer NOT NULL,
+	"Name" varchar(200) NOT NULL,
 	"Telephone" varchar(200) NOT NULL,
 	"Email" varchar(200) NOT NULL,
-	"created_at" datetime NOT NULL,
-	"BirthDate" date NOT NULL
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
-CREATE TABLE IF NOT EXISTS "Room" (
-	"Id" INTEGER NOT NULL,
-	"DepartmentId" INTEGER NOT NULL,
-	"NUMBER" INTEGER NOT NULL,
-	PRIMARY KEY("Id" AUTOINCREMENT),
-	FOREIGN KEY("DepartmentId") REFERENCES "Department"("id")
+CREATE TABLE IF NOT EXISTS "Doctor" (
+	"id" integer NOT NULL,
+	"FirstName" varchar(200) NOT NULL,
+	"LastName" varchar(200) NOT NULL,
+	"BirthDate" date NOT NULL,
+	"Address" varchar(200) NOT NULL,
+	"Telephone" varchar(200) NOT NULL,
+	"Email" varchar(200) NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
-CREATE TABLE IF NOT EXISTS "RenderedService" (
-	"Id" INTEGER NOT NULL,
-	"AppointmentId" INTEGER NOT NULL,
-	"ServiceId" INTEGER NOT NULL,
-	"Quantity" INTEGER NOT NULL,
-	PRIMARY KEY("Id" AUTOINCREMENT),
-	FOREIGN KEY("AppointmentId") REFERENCES "Appointment"("id")
-);
-
-CREATE TABLE IF NOT EXISTS "Invoice" (
-	"Id" INTEGER NOT NULL,
-	"RenderedServiceId" INTEGER NOT NULL,
-	FOREIGN KEY("RenderedServiceId") REFERENCES "RenderedService"("id")
-);
-
-CREATE TABLE IF NOT EXISTS "Department" (
-	"Id" INTEGER NOT NULL,
-	"Name" TEXT NOT NULL,
-	"Telephone" TEXT NOT NULL,
-	"Email" TEXT,
-	PRIMARY KEY("Id" AUTOINCREMENT)
+CREATE TABLE IF NOT EXISTS "Patient" (
+	"id" integer NOT NULL,
+	"FirstName" varchar(200) NOT NULL,
+	"LastName" varchar(200) NOT NULL,
+	"BirthDate" date NOT NULL,
+	"Address" varchar(200) NOT NULL,
+	"Telephone" varchar(200) NOT NULL,
+	"Email" varchar(200) NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
 CREATE TABLE IF NOT EXISTS "Service" (
-	"Id" INTEGER NOT NULL,
-	"DepartmentId" INTEGER NOT NULL,
-	"Name" TEXT NOT NULL,
-	"Description" TEXT,
-	"Price" INTEGER NOT NULL,
-	FOREIGN KEY("DepartmentId") REFERENCES "Department"("id")
+	"id" integer NOT NULL,
+	"Name" varchar(200) NOT NULL,
+	"Description" varchar(200) NOT NULL,
+	"Price" real NOT NULL,
+	"Department_id" bigint NOT NULL,
+	FOREIGN KEY("Department_id") REFERENCES "Department"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+
+CREATE TABLE IF NOT EXISTS "Room" (
+	"id" integer NOT NULL,
+	"Number" integer NOT NULL,
+	"Department_id" bigint NOT NULL,
+	FOREIGN KEY("Department_id") REFERENCES "Department"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+
+CREATE TABLE IF NOT EXISTS "RenderedService" (
+	"id" integer NOT NULL,
+	"Quantity" integer NOT NULL,
+	"Appointment_id" bigint NOT NULL,
+	"Service_id" bigint NOT NULL,
+	FOREIGN KEY("Appointment_id") REFERENCES "Appointment"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("Service_id") REFERENCES "Service"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+
+CREATE TABLE IF NOT EXISTS "Prescription" (
+	"id" integer NOT NULL,
+	"StartDate" date NOT NULL,
+	"EndDate" date NOT NULL,
+	"Medication" varchar(200) NOT NULL,
+	"Approved" varchar(50) NOT NULL,
+	"Appointment_id" bigint NOT NULL,
+	FOREIGN KEY("Appointment_id") REFERENCES "Appointment"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
 CREATE TABLE IF NOT EXISTS "Job" (
-	"Id" INTEGER NOT NULL,
-	"DoctorId" INTEGER NOT NULL,
-	"DepartmentId" INTEGER NOT NULL,
-	"Title" INTEGER NOT NULL,
-	"StartDate" INTEGER NOT NULL,
-	"EndDate" INTEGER NOT NULL,
-	FOREIGN KEY("DoctorId") REFERENCES "Doctor"("id"),
-	FOREIGN KEY("DepartmentId") REFERENCES "Department"("id")
+	"id" integer NOT NULL,
+	"Title" varchar(200) NOT NULL,
+	"StartDate" date NOT NULL,
+	"EndDate" date NOT NULL,
+	"Department_id" bigint NOT NULL,
+	"Doctor_id" bigint NOT NULL,
+	FOREIGN KEY("Doctor_id") REFERENCES "Doctor"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("Department_id") REFERENCES "Department"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+
+CREATE TABLE IF NOT EXISTS "Invoice" (
+	"id" integer NOT NULL,
+	"RenderedService_id" bigint NOT NULL,
+	FOREIGN KEY("RenderedService_id") REFERENCES "RenderedService"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+
+CREATE TABLE IF NOT EXISTS "Appointment" (
+	"id" integer NOT NULL,
+	"Date" date NOT NULL,
+	"Doctor_id" bigint NOT NULL,
+	"Patient_id" bigint NOT NULL,
+	"Room_id" bigint NOT NULL,
+	FOREIGN KEY("Patient_id") REFERENCES "Patient"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("Doctor_id") REFERENCES "Doctor"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("Room_id") REFERENCES "Room"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
 COMMIT;
